@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,9 +21,9 @@ namespace assignment2.Controllers
             _service = new AppointmentService(context);
         }
 
-        public List<Appointment> Get()
+        public string Get()
         {
-            return _service.Get().ToList();
+            return _service.GetAndConvertToJson();
         }
     }
 }
