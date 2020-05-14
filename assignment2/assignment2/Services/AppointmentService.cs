@@ -1,6 +1,7 @@
-﻿using assignment2.Data;
+using assignment2.Data;
 using assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -94,6 +95,21 @@ namespace assignment2.Services
         {
             return ExporterFactory.Instance().CreateExporter(type).export(applist.ToList());
         }
+
+        public string GetAndConvertToJson()
+        {
+            IEnumerable<Appointment> applist = unitOfWork.AppointmentRepository.Get();
+
+            JsonSerializerSettings microsoftDateFormatSettings = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                Formatting = Formatting.Indented
+                
+            };
+            return JsonConvert.SerializeObject(applist, microsoftDateFormatSettings);
+
+        }
+
 
     }
 
